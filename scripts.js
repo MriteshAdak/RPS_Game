@@ -21,8 +21,8 @@
     - based on the final result of the five rounds declare the final winner in console.log
 */
 
-const computerScore = 0;
-const humanScore = 0;
+let computerScore = 0;
+let humanScore = 0;
 
 function getComputerChoice()
 {
@@ -66,3 +66,59 @@ const choiceOfComputer = getComputerChoice();
 const choiceOfUser = getUserChoice();
 
 console.log(`Computer chose: ${choiceOfComputer}\nUser chose: ${choiceOfUser}`);
+
+function playRound(computerChoice, humanChoice)
+{
+    if (computerChoice == "rock")
+        {
+            if (humanChoice == "paper")
+                {
+                    humanScore++;
+                    console.log("HAHA!! not so smart huh?");
+                }
+            else if (humanChoice == "scissor")
+                {
+                    computerScore++;
+                    console.log("MUAHHAHAHA.. count your last few days human.");
+                }
+            else
+                console.log("same same but different!");
+        }
+
+    else if (computerChoice == "paper")
+        {
+            if (humanChoice == "scissor")
+                {
+                    humanScore++;
+                    console.log("HAHA!! not so smart huh?");
+                }
+            else if (humanChoice == "rock")
+                {
+                    computerScore++;
+                    console.log("MUAHHAHAHA.. count your last few days human.");
+                }
+            else
+                console.log("same same but different!");
+        }
+
+    else if (computerChoice == "scissor")
+        {
+            if (humanChoice == "rock")
+                {
+                    humanScore++;
+                    console.log("HAHA!! not so smart huh?");
+                }
+            else if (humanChoice == "paper")
+                {
+                    computerScore++;
+                    console.log("MUAHHAHAHA.. count your last few days human.");
+                }
+            else
+                console.log("same same but different!");
+        }
+    else
+        console.log("we have nothing to say");
+
+}
+
+playRound(choiceOfComputer, choiceOfUser);
