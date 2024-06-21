@@ -62,27 +62,35 @@ function getUserChoice()
     return humanChoice;
 }
 
-const choiceOfComputer = getComputerChoice();
-const choiceOfUser = getUserChoice();
+// console.log(`Computer chose: ${choiceOfComputer}\nUser chose: ${choiceOfUser}`);
 
-console.log(`Computer chose: ${choiceOfComputer}\nUser chose: ${choiceOfUser}`);
 
-function playRound(computerChoice, humanChoice)
+function playRound()
 {
+    // predefined outputs to avoid repetation
+    const roundHuman = "This round goes to BeingHuman";
+    const roundComputer = "This round goes to the Matrix";
+    const roundDraw = "same same but different";
+
+    // getting new inputs for each round
+    const computerChoice = getComputerChoice();
+    const humanChoice = getUserChoice();
+
+    // the round begins
     if (computerChoice == "rock")
         {
             if (humanChoice == "paper")
                 {
                     humanScore++;
-                    console.log("HAHA!! not so smart huh?");
+                    console.log(roundHuman);
                 }
             else if (humanChoice == "scissor")
                 {
                     computerScore++;
-                    console.log("MUAHHAHAHA.. count your last few days human.");
+                    console.log(roundComputer);
                 }
             else
-                console.log("same same but different!");
+                console.log(roundDraw);
         }
 
     else if (computerChoice == "paper")
@@ -90,15 +98,15 @@ function playRound(computerChoice, humanChoice)
             if (humanChoice == "scissor")
                 {
                     humanScore++;
-                    console.log("HAHA!! not so smart huh?");
+                    console.log(roundHuman);
                 }
             else if (humanChoice == "rock")
                 {
                     computerScore++;
-                    console.log("MUAHHAHAHA.. count your last few days human.");
+                    console.log(roundComputer);
                 }
             else
-                console.log("same same but different!");
+                console.log(roundDraw);
         }
 
     else if (computerChoice == "scissor")
@@ -106,19 +114,37 @@ function playRound(computerChoice, humanChoice)
             if (humanChoice == "rock")
                 {
                     humanScore++;
-                    console.log("HAHA!! not so smart huh?");
+                    console.log(roundHuman);
                 }
             else if (humanChoice == "paper")
                 {
                     computerScore++;
-                    console.log("MUAHHAHAHA.. count your last few days human.");
+                    console.log(roundComputer);
                 }
             else
-                console.log("same same but different!");
+                console.log(roundDraw);
         }
     else
         console.log("we have nothing to say");
 
 }
 
-playRound(choiceOfComputer, choiceOfUser);
+// playRound(choiceOfComputer, choiceOfUser);
+
+function playGame()
+{   
+    // playing best of five
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+
+    // displying the winner
+    if(humanScore > computerScore) console.log("THE WINNER AND STILL THE WORLD CHAMPIOOONNNNNN.. HOMO MFKIN SAPIEENNNNNNN");
+    else if (computerScore > humanScore) console.log("SERIOUSLY DUDE!! you lost to a bot");
+    else console.log("human = bot");
+
+}
+
+playGame();
