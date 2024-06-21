@@ -11,7 +11,7 @@
     - print the value to make sure the assocaiation works
     - return and store the output in a variable: humanChoice
 
-    # function to play a single round: playRound
+# function to play a single round: playRound
     - two parameters that will have arguements computerChoice and humanChoice
     - output the winner as a string
     - increment the variable corresponding to the winner
@@ -21,4 +21,48 @@
     - based on the final result of the five rounds declare the final winner in console.log
 */
 
-console.log("Test code")
+const computerScore = 0;
+const humanScore = 0;
+
+function getComputerChoice()
+{
+    const choice = Math.ceil(Math.random()*3);
+    let computerChoice = "";
+
+    switch(choice)
+    {
+        case 1: computerChoice = "rock";
+            break;
+        case 2: computerChoice = "paper";
+            break;
+        case 3: computerChoice = "scissor";
+            break;
+        default : computerChoice = "";
+    }
+
+    return computerChoice;
+}
+
+function getUserChoice()
+{
+    const choice = parseInt(prompt("Enter the number corresponding to the option you wish to choose: \n1. Rock\n2. Paper\n3. Scissor\n"));
+    let humanChoice = "";
+
+    switch(choice)
+    {
+        case 1: humanChoice = "rock";
+            break;
+        case 2: humanChoice = "paper";
+            break;
+        case 3: humanChoice = "scissor";
+            break;
+        default : humanChoice = "";
+    }
+
+    return humanChoice;
+}
+
+const choiceOfComputer = getComputerChoice();
+const choiceOfUser = getUserChoice();
+
+console.log(`Computer chose: ${choiceOfComputer}\nUser chose: ${choiceOfUser}`);
