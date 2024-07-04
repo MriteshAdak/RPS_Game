@@ -1,0 +1,14 @@
+/* styles for RPS game */
+
+body #container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#restart
+{
+    display: none;
+}

@@ -1,33 +1,41 @@
-/*
-# declare variables computerScore and humanScore for storing respective scores and intitilize them to 0
-
-# funciton to get computer's input: getComputerChoice
-    - a random number genertor from 1 to 3 that corresponds to rock, paper and scissor
-    - print the value to make sure the association works
-    - return and store the output in a varaiable: computerChoice
-
-# function to get user's input: getUserChoice
-    - a prompt to get a numerical input from user that associates to the 3 available options
-    - print the value to make sure the assocaiation works
-    - return and store the output in a variable: humanChoice
-
-# function to play a single round: playRound
-    - two parameters that will have arguements computerChoice and humanChoice
-    - output the winner as a string
-    - increment the variable corresponding to the winner
-
-# function to play best of five rounds: playGame
-    - call the playRound fn five times
-    - based on the final result of the five rounds declare the final winner in console.log
-*/
+// Scripting logic for RPS game
 
 let computerScore = 0;
 let humanScore = 0;
 
+const displayDiv = document.querySelector("#results");
+const humanOptions = document.querySelector("#RPS-option");
+const scoreKeep = document.querySelector("#score");
+const restart = document.querySelector("#restart");
+const endEvent = new CustomEvent("gameOver", {detail:{winner: null}});
+
+displayDiv.textContent = "Let the games begin!"
+scoreKeep.textContent = `Human: ${humanScore} \t\t\t Computer: ${computerScore}`;
+let humanChoice = '';
+
+humanOptions.addEventListener("click", (e) =>
+    {
+        humanChoice = e.target.id; playRound(humanChoice);
+    });
+
+document.addEventListener("gameOver", (e) =>
+    {
+        e.detail.winner = humanScore == 5 ? "human" : "bot";
+        const announcement =
+            e.detail.winner == "human" ?
+            "The winner and still the WORLD CHAMPIOONNN!! HOMO FKIN SAPIEENNN!!" :
+            "Congrats to me!! You lost to a BOT which makes you the bot"
+        displayDiv.textContent = announcement;
+        humanOptions.style.display = "none";
+        restart.style.display = "inline";
+    });
+
+restart.addEventListener("click", startOver);
+
 function getComputerChoice()
 {
-    const choice = Math.ceil(Math.random()*3);
     let computerChoice = "";
+    const choice = Math.ceil(Math.random()*3);
 
     switch(choice)
     {
@@ -35,116 +43,60 @@ function getComputerChoice()
             break;
         case 2: computerChoice = "paper";
             break;
-        case 3: computerChoice = "scissor";
+        case 3: computerChoice = "scissors";
             break;
         default : computerChoice = "";
     }
 
     return computerChoice;
-}
+};
 
-function getUserChoice()
+
+function playRound(humanChoice)
 {
-    const choice = parseInt(prompt("Enter the number corresponding to the option you wish to choose: \n1. Rock\n2. Paper\n3. Scissor\n"));
-    let humanChoice = "";
-
-    switch(choice)
-    {
-        case 1: humanChoice = "rock";
-            break;
-        case 2: humanChoice = "paper";
-            break;
-        case 3: humanChoice = "scissor";
-            break;
-        default : humanChoice = "";
-    }
-
-    return humanChoice;
-}
-
-// console.log(`Computer chose: ${choiceOfComputer}\nUser chose: ${choiceOfUser}`);
-
-
-function playRound()
-{
-    // predefined outputs to avoid repetation
+    // predefined output text to avoid repetation
     const roundHuman = "This round goes to BeingHuman";
     const roundComputer = "This round goes to the Matrix";
     const roundDraw = "same same but different";
 
-    // getting new inputs for each round
+    // getting new inputs for each round from the computer
     const computerChoice = getComputerChoice();
-    const humanChoice = getUserChoice();
 
-    // the round begins
-    if (computerChoice == "rock")
-        {
-            if (humanChoice == "paper")
-                {
-                    humanScore++;
-                    console.log(roundHuman);
-                }
-            else if (humanChoice == "scissor")
-                {
-                    computerScore++;
-                    console.log(roundComputer);
-                }
-            else
-                console.log(roundDraw);
-        }
+    // round begins
+    if (computerChoice == "rock" && humanChoice == "scissors" ||
+        computerChoice == "paper" && humanChoice == "rock" ||
+        computerChoice == "scissors" && humanChoice == "paper")
+    {
+        computerScore++;
+        console.log(roundComputer);
+        displayDiv.textContent = roundComputer;
+    }
+    
+    else if (computerChoice == humanChoice)
+    {
+        console.log(roundDraw);
+        displayDiv.textContent = roundDraw;
+    }
 
-    else if (computerChoice == "paper")
-        {
-            if (humanChoice == "scissor")
-                {
-                    humanScore++;
-                    console.log(roundHuman);
-                }
-            else if (humanChoice == "rock")
-                {
-                    computerScore++;
-                    console.log(roundComputer);
-                }
-            else
-                console.log(roundDraw);
-        }
-
-    else if (computerChoice == "scissor")
-        {
-            if (humanChoice == "rock")
-                {
-                    humanScore++;
-                    console.log(roundHuman);
-                }
-            else if (humanChoice == "paper")
-                {
-                    computerScore++;
-                    console.log(roundComputer);
-                }
-            else
-                console.log(roundDraw);
-        }
     else
-        console.log("we have nothing to say");
+    {
+        humanScore++;
+        console.log(roundHuman);
+        displayDiv.textContent = roundHuman;
+    }
+    
+    scoreKeep.textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
 
+    if (computerScore == 5 || humanScore == 5)
+        document.dispatchEvent(endEvent);
 }
 
-// playRound(choiceOfComputer, choiceOfUser);
-
-function playGame()
-{   
-    // playing best of five
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-
-    // displying the winner
-    if(humanScore > computerScore) console.log("THE WINNER AND STILL THE WORLD CHAMPIOOONNNNNN.. HOMO MFKIN SAPIEENNNNNNN");
-    else if (computerScore > humanScore) console.log("SERIOUSLY DUDE!! you lost to a bot");
-    else console.log("human = bot");
-
+function startOver()
+{
+    computerScore = 0;
+    humanScore = 0;
+    displayDiv.textContent = "Let the games begin!"
+    humanOptions.style.display = "inline";
+    restart.style.display = "none";
+    scoreKeep.textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
 }
-
-playGame();
