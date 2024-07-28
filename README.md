@@ -1,2 +1,2 @@
 # TOP_RPS_Game
-Rock Paper Scissor Project from TOP
+The classic Rock Paper Scissor game only barebones
