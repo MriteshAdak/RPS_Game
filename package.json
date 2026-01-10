@@ -1,0 +1,12 @@
+{
+  "name": "rps-typescript",
+  "version": "1.0.0",
+  "description": "Rock Paper Scissors game migrated to TypeScript",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
